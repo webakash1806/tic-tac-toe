@@ -1,9 +1,11 @@
 import React from 'react'
+import GameBox from './Components/GameBox'
+import Board from './Components/Board'
 
 const App = () => {
   return (
-    <div className='bg-black text-white'>
-      Hello
+    <div className='h-screen flex items-center justify-center bg-[#2E0B43]'>
+      <GameBox />
     </div>
   )
 }
