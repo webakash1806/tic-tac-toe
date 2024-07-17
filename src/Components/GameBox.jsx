@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import Board from './Board'
+import ConfettiExplosion from 'react-confetti-explosion';
 
 const GameBox = () => {
     const [squares, setSquares] = useState(Array(9).fill(null))
     const [isXNext, setIsXNext] = useState(true)
+
+    const handleRestart = () => {
+        setSquares(Array(9).fill(null));
+        setIsXNext(true);
+    };
+
     const calculateWinner = (squares) => {
         const lines = [
             [0, 1, 2],
@@ -39,21 +46,26 @@ const GameBox = () => {
 
     let status
     if (winner) {
-        status = 'Winner' + winner
+        status = 'Winner : ' + winner
     } else {
-        status = 'Next Player :' + (isXNext ? 'X' : 'O')
+        status = 'Next Player : ' + (isXNext ? 'X' : 'O')
     }
 
 
 
+
     return (
-        <div className=' bg-transparent'>
+        <div className=' bg-transparent flex flex-col gap-2 items-center'>
+            {status === 'Winner : X' || status === 'Winner : O' && <div className='absolute left-[50%]'>
+                <ConfettiExplosion />
+            </div>}
             <div>
                 <Board squares={squares} onClick={handleClick} />
             </div>
             <div>
                 <p className='text-white'>{status}</p>
             </div>
+            <button onClick={handleRestart} className='text-white border rounded p-2 px-10 m-2'>Restart</button>
         </div>
     )
 }
